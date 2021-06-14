@@ -1,0 +1,16 @@
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\SubscriptionBackMenu.exe
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\SubscriptionBackMenu.deps.json
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\SubscriptionBackMenu.runtimeconfig.json
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\SubscriptionBackMenu.runtimeconfig.dev.json
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\SubscriptionBackMenu.dll
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\ref\SubscriptionBackMenu.dll
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\bin\Debug\net5.0\SubscriptionBackMenu.pdb
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.csprojAssemblyReference.cache
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.AssemblyInfoInputs.cache
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.AssemblyInfo.cs
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.csproj.CoreCompileInputs.cache
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.dll
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\ref\SubscriptionBackMenu.dll
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.pdb
+C:\Users\niyaz\source\repos\SubscriptionBackMenu\SubscriptionBackMenu\obj\Debug\net5.0\SubscriptionBackMenu.genruntimeconfig.cache
