@@ -205,11 +205,19 @@ namespace SubscriptionBackMenu.Services
         }
         public static void SendAlertMenu()
         {
-            method.SendAlert(user);
+            while (true)
+            {
+                method.SendAlert(user);
+            }
+            
         }
         public static void DeleteCheckMenu()
         {
-            method.DeleteCheck();
+            while (true)
+            {
+                method.DeleteCheck();
+            }
+            
         }
     }
 }
