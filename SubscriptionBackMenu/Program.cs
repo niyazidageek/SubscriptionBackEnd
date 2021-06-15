@@ -11,7 +11,7 @@ namespace SubscriptionBackMenu
             int option = 5;
             int selection1 = 5;
             bool temp = false;
-            MenuService.ConstantCheck();
+            
             do
             {
                 Console.WriteLine("1. Log In");
@@ -115,7 +115,7 @@ namespace SubscriptionBackMenu
                                 break;
                         }
                     } while (option != 0 && option!=4);
-                }
+                }                
             } while (temp != true || selection == 2 || option == 0 || selection1 == 0);         
         }
     }

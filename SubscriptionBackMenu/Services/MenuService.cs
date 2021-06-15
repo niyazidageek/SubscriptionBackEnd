@@ -11,11 +11,11 @@ namespace SubscriptionBackMenu.Services
     {
         public static User user = null;
         static SubscriptionService method = new();
-        public static void ConstantCheck()
-        {
-            if (method.Users.Count != 0)
-                Parallel.Invoke(SendAlertMenu, DeleteCheckMenu);
-        }
+        //public static void ConstantCheck()
+        //{
+        //    if (method.Users.Count != 0)
+        //        Parallel.Invoke(SendAlertMenu, DeleteCheckMenu);
+        //}
         public static void AddUserMenu()
         {
             Console.WriteLine("Enter the name");
@@ -106,7 +106,7 @@ namespace SubscriptionBackMenu.Services
         {
             try
             {
-                MenuService.DeleteUserMenu();
+                method.DeleteUser(user);
             }
             catch (Exception)
             {
@@ -194,7 +194,7 @@ namespace SubscriptionBackMenu.Services
             string password = Console.ReadLine();
             try
             {
-                method.UserLogin(mail, password); 
+                method.UserLogin(mail, password);
             }
             catch (Exception e)
             {

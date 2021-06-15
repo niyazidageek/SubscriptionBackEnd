@@ -146,15 +146,28 @@ namespace SubscriptionBackMenu.Services
 
         public void SendAlert(User user)
         {
-            Parallel.ForEach(user.UserProducts, product => 
+
+            //foreach (var product in user.UserProducts)
+            //{
+            //    DateTime date = DateTime.Now;
+            //    if(product.ExpireDate.Second - date.Second != 5)
+            //    {
+            //        date = DateTime.Now;
+            //    }
+            //    Console.WriteLine("There are 5 seconds left");
+            //    date = DateTime.Now;
+            //    if(product.ExpireDate.Second == date.Second)
+            //        product.Status = "Expired";
+            //}
+            Parallel.ForEach(user.UserProducts, product =>
             {
                 DateTime date = DateTime.Now;
-                while(product.ExpireDate.Second - date.Second!= 5)
+                while (product.ExpireDate.Second - date.Second != 5)
                 {
                     date = DateTime.Now;
                 }
                 Console.WriteLine("There are 5 seconds left");
-                while(product.ExpireDate.Second != date.Second)
+                while (product.ExpireDate.Second != date.Second)
                 {
                     date = DateTime.Now;
                 }
@@ -176,7 +189,7 @@ namespace SubscriptionBackMenu.Services
         }
         public void DeleteCheck()
         {
-            Parallel.ForEach(Users, user=> 
+            Parallel.ForEach(Users, user =>
             {
                 DateTime datecheck = DateTime.Now;
                 while (datecheck.Second != user.DisableCheck.AddSeconds(10).Second)
