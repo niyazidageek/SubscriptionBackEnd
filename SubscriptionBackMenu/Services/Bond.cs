@@ -10,7 +10,7 @@ namespace SubscriptionBackMenu.Services
     {
         public static void Startup()
         {
-            Parallel.Invoke(Menu, MenuService.DeleteCheckMenu, MenuService.SendAlertMenu);
+            Parallel.Invoke(Menu, MenuService.SendAlertMenu, MenuService.DeleteCheckMenu);
         }
         
         public static void Menu()

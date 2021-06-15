@@ -78,9 +78,11 @@ namespace SubscriptionBackMenu.Services
         {
             Console.WriteLine("Enter the name of the product please");
             string name = Console.ReadLine();
+            Console.WriteLine("Enter the new name of the product please");
+            string newname = Console.ReadLine();
             try
             {
-                method.EditProductAdmin(name);
+                method.EditProductAdmin(name, newname);
             }
             catch (Exception e)
             {
@@ -205,11 +207,10 @@ namespace SubscriptionBackMenu.Services
         }
         public static void SendAlertMenu()
         {
-            while (true)
+            while (SubscriptionService.check !=1)
             {
-                method.SendAlert(user);
+                method.SendAlert();
             }
-            
         }
         public static void DeleteCheckMenu()
         {

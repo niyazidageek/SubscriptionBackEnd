@@ -10,6 +10,7 @@ namespace SubscriptionBackMenu.Services
 {
     class SubscriptionService:IService
     {
+        public static int check = 0;
         public List<User> Users { get; set; }   
         public List<Product> SystemProducts { get; set; }
         public SubscriptionService()
@@ -72,12 +73,14 @@ namespace SubscriptionBackMenu.Services
             Console.WriteLine("Category has been succeessfully added!");
         }
 
-        public void EditProductAdmin(string name)
+        public void EditProductAdmin(string name, string newname)
         {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(newname))
+                throw new ArgumentNullException("Name can not be null");
             var product = SystemProducts.Find(s => s.Name == name);
             if (product == null)
                 throw new ArgumentNullException("There is no such category!");
-            product.Name = name;
+            product.Name = newname;
         }
 
         public void RemoveProductAdmin(string name)
@@ -90,14 +93,14 @@ namespace SubscriptionBackMenu.Services
         }
 
         public void AddProductUser(User user, string name, DateTime purchasedate, int duration)
-        {
+        {            
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("Name is null");
             var product = SystemProducts.Find(s=>s.Name == name);
             if (product == null)
                 throw new ArgumentNullException("There is no such product");
             product.PurchaseDate = purchasedate;
-            product.ExpireDate = purchasedate.AddSeconds(duration);
+            product.ExpireDate = purchasedate.AddDays(duration);
             user.UserProducts.Add(product);
             Console.WriteLine("Product has been successfully added");
         }
@@ -144,9 +147,9 @@ namespace SubscriptionBackMenu.Services
             }        
         }
 
-        public void SendAlert(User user)
+        public void SendAlert()
         {
-
+            
             //foreach (var product in user.UserProducts)
             //{
             //    DateTime date = DateTime.Now;
@@ -159,20 +162,59 @@ namespace SubscriptionBackMenu.Services
             //    if(product.ExpireDate.Second == date.Second)
             //        product.Status = "Expired";
             //}
-            Parallel.ForEach(user.UserProducts, product =>
+            //for (int i = 0; i < Users.Count; i++)
+            //{
+            //    for (int j = 0; j < Users[i].UserProducts.Count; j++)
+            //    {
+            //        DateTime date = DateTime.Now;
+            //        int result = Users[i].UserProducts[j].ExpireDate.Day - date.Day;
+            //        while (result >= 0)
+            //        {
+            //            date = DateTime.Now;
+            //        }
+            //        Users[i].UserProducts[j].Status = "Expired";
+            //        Console.WriteLine("Product has been expired");
+            //    }
+            //}
+            //foreach (var user in Users)
+            //{
+            //    foreach (var item in user.UserProducts)
+            //    {
+            //        DateTime date = DateTime.Now;
+            //        while (item.ExpireDate.Day - date.Day > 0)
+            //        {
+            //            date = DateTime.Now;
+            //        }
+            //        item.Status = "Expired";
+            //        Console.WriteLine("Product has been expired");
+            //    }
+            //}
+            Parallel.ForEach(Users, user =>
             {
-                DateTime date = DateTime.Now;
-                while (product.ExpireDate.Second - date.Second != 5)
+                Parallel.ForEach(user.UserProducts, product =>
                 {
-                    date = DateTime.Now;
-                }
-                Console.WriteLine("There are 5 seconds left");
-                while (product.ExpireDate.Second != date.Second)
-                {
-                    date = DateTime.Now;
-                }
-                product.Status = "Expired";
+                    DateTime date = DateTime.Now;
+                    while (product.ExpireDate.Day - date.Day > 0)
+                    {
+                        date = DateTime.Now;
+                    }
+                    product.Status = "Expired";
+                    Console.WriteLine("product has expired");
+                    check = 1;
+                });
             });
+            check = 0;
+            //DateTime date = DateTime.Now;
+            //while (product.ExpireDate.Day - date.Day ! <= 0)
+            //{
+            //    date = DateTime.Now;
+            //}
+            //Console.WriteLine("There are 5 seconds left");
+            //while (product.ExpireDate.Second != date.Second)
+            //{
+            //    date = DateTime.Now;
+            //}           
+            //});
         }
         public bool IsValid(string emailaddress)
         {
