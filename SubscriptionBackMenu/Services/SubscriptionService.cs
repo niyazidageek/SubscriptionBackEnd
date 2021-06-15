@@ -97,7 +97,7 @@ namespace SubscriptionBackMenu.Services
             if (product == null)
                 throw new ArgumentNullException("There is no such product");
             product.PurchaseDate = purchasedate;
-            product.ExpireDate = purchasedate.AddDays(duration);
+            product.ExpireDate = purchasedate.AddSeconds(duration);
             user.UserProducts.Add(product);
             Console.WriteLine("Product has been successfully added");
         }
@@ -110,7 +110,7 @@ namespace SubscriptionBackMenu.Services
             if (product == null)
                 throw new ArgumentNullException("There is no such product");
             product.PurchaseDate = newpurchasedate;
-            product.ExpireDate = newpurchasedate.AddDays(duration);
+            product.ExpireDate = newpurchasedate.AddSeconds(duration);
             Console.WriteLine("Changes have been saved");
         }
 
@@ -132,13 +132,14 @@ namespace SubscriptionBackMenu.Services
             if (string.IsNullOrEmpty(password))
                 throw new ArgumentNullException("Password is null");
             var user = Users.Find(s => s.Mail == mail && s.Password == password);
-            MenuService.user = user;
             if (user == null)
             {
                 return false;
             }
             else
             {
+                MenuService.user = user;
+                user.Status = "Active";
                 return true;
             }        
         }
@@ -178,7 +179,7 @@ namespace SubscriptionBackMenu.Services
             Parallel.ForEach(Users, user=> 
             {
                 DateTime datecheck = DateTime.Now;
-                while (datecheck.Second-user.DisableCheck.Second != 10)
+                while (datecheck.Second != user.DisableCheck.AddSeconds(10).Second)
                 {
                     datecheck = DateTime.Now;
                 }

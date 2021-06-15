@@ -25,6 +25,7 @@ namespace SubscriptionBackMenu.Entities
             Phone = phone;
             Password = password;
             Status = "Active";
+            UserProducts = new();
         }
     }
 }

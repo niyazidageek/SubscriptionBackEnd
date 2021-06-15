@@ -11,6 +11,11 @@ namespace SubscriptionBackMenu.Services
     {
         public static User user = null;
         static SubscriptionService method = new();
+        public static void ConstantCheck()
+        {
+            if (method.Users.Count != 0)
+                Parallel.Invoke(SendAlertMenu, DeleteCheckMenu);
+        }
         public static void AddUserMenu()
         {
             Console.WriteLine("Enter the name");
@@ -101,7 +106,7 @@ namespace SubscriptionBackMenu.Services
         {
             try
             {
-                method.DeleteUser(user);
+                MenuService.DeleteUserMenu();
             }
             catch (Exception)
             {
@@ -200,26 +205,11 @@ namespace SubscriptionBackMenu.Services
         }
         public static void SendAlertMenu()
         {
-            try
-            {
-                method.SendAlert(user);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong!");
-            }
+            method.SendAlert(user);
         }
         public static void DeleteCheckMenu()
         {
-            try
-            {
-                method.DeleteCheck();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong!");
-
-            }          
+            method.DeleteCheck();
         }
     }
 }
