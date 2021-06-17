@@ -199,11 +199,6 @@ namespace SubscriptionBackMenu.Services
         {
             Parallel.ForEach(Users, user =>
             {
-                //DateTime datecheck = DateTime.Now;
-                //while (datecheck.Second != user.DisableCheck.AddSeconds(10).Second)
-                //{
-                //    datecheck = DateTime.Now;
-                //}
                 Timer a = new Timer(259200000);
                 a.Elapsed += new ElapsedEventHandler(DeleteCheckHandler);
                 a.Enabled = true;
