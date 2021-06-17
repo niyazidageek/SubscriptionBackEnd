@@ -75,7 +75,7 @@ namespace SubscriptionBackMenu.Services
                         } while (selection1 != 0);
                         break;
                     case 0:
-                        Console.WriteLine("Shutting down...");
+                        throw new Exception("Shutting down!");
                         break;
                     default:
                         Console.WriteLine("There is no such option");

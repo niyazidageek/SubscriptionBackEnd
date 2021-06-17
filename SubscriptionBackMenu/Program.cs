@@ -4,10 +4,10 @@ using System;
 namespace SubscriptionBackMenu
 {
     class Program
-    {       
+    {
         static void Main(string[] args)
         {
-            Bond.Startup();     
+            Bond.Startup();
         }
     }
 }
