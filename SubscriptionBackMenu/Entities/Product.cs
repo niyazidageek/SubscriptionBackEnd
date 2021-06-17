@@ -15,7 +15,7 @@ namespace SubscriptionBackMenu.Entities
         public Product(string name)
         {
             Name = name;
-            Status = "Active";
+            Status = "Active";  
         }
     }
 }

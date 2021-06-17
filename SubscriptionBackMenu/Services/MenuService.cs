@@ -207,7 +207,7 @@ namespace SubscriptionBackMenu.Services
         }
         public static void SendAlertMenu()
         {
-            while (SubscriptionService.check !=1)
+            while (true)
             {
                 method.SendAlert();
             }

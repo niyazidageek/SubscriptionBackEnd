@@ -5,4 +5,14 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Account.xsc" />
+    <None Remove="Account.xss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Account.xsc" />
+    <Resource Include="Account.xss" />
+  </ItemGroup>
+
 </Project>

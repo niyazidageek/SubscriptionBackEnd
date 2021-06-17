@@ -5,12 +5,12 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace SubscriptionBackMenu.Services
 {
     class SubscriptionService:IService
     {
-        public static int check = 0;
         public List<User> Users { get; set; }   
         public List<Product> SystemProducts { get; set; }
         public SubscriptionService()
@@ -113,7 +113,7 @@ namespace SubscriptionBackMenu.Services
             if (product == null)
                 throw new ArgumentNullException("There is no such product");
             product.PurchaseDate = newpurchasedate;
-            product.ExpireDate = newpurchasedate.AddSeconds(duration);
+            product.ExpireDate = newpurchasedate.AddDays(duration);
             Console.WriteLine("Changes have been saved");
         }
 
@@ -130,9 +130,9 @@ namespace SubscriptionBackMenu.Services
 
         public bool UserLogin(string mail, string password)
         {
-            if (string.IsNullOrEmpty(mail))
-                throw new ArgumentNullException("Mail is null");
-            if (string.IsNullOrEmpty(password))
+           if (string.IsNullOrEmpty(mail))
+               throw new ArgumentNullException("Mail is null");
+           if (string.IsNullOrEmpty(password))
                 throw new ArgumentNullException("Password is null");
             var user = Users.Find(s => s.Mail == mail && s.Password == password);
             if (user == null)
@@ -149,72 +149,38 @@ namespace SubscriptionBackMenu.Services
 
         public void SendAlert()
         {
-            
-            //foreach (var product in user.UserProducts)
-            //{
-            //    DateTime date = DateTime.Now;
-            //    if(product.ExpireDate.Second - date.Second != 5)
-            //    {
-            //        date = DateTime.Now;
-            //    }
-            //    Console.WriteLine("There are 5 seconds left");
-            //    date = DateTime.Now;
-            //    if(product.ExpireDate.Second == date.Second)
-            //        product.Status = "Expired";
-            //}
-            //for (int i = 0; i < Users.Count; i++)
-            //{
-            //    for (int j = 0; j < Users[i].UserProducts.Count; j++)
-            //    {
-            //        DateTime date = DateTime.Now;
-            //        int result = Users[i].UserProducts[j].ExpireDate.Day - date.Day;
-            //        while (result >= 0)
-            //        {
-            //            date = DateTime.Now;
-            //        }
-            //        Users[i].UserProducts[j].Status = "Expired";
-            //        Console.WriteLine("Product has been expired");
-            //    }
-            //}
-            //foreach (var user in Users)
-            //{
-            //    foreach (var item in user.UserProducts)
-            //    {
-            //        DateTime date = DateTime.Now;
-            //        while (item.ExpireDate.Day - date.Day > 0)
-            //        {
-            //            date = DateTime.Now;
-            //        }
-            //        item.Status = "Expired";
-            //        Console.WriteLine("Product has been expired");
-            //    }
-            //}
             Parallel.ForEach(Users, user =>
             {
                 Parallel.ForEach(user.UserProducts, product =>
                 {
                     DateTime date = DateTime.Now;
-                    while (product.ExpireDate.Day - date.Day > 0)
+                    if (date.Date >= product.ExpireDate)
                     {
-                        date = DateTime.Now;
+                        Console.WriteLine("Product has expired");
+                        user.UserProducts.Remove(product);
                     }
+                    else
+                    {    
+                        Timer a = new Timer((product.ExpireDate - date).Ticks);
+                        a.Elapsed += new ElapsedEventHandler(SendAlertElapsedHandler);
+                        a.Enabled = true;
+                    }
+                });
+                
+            });
+            
+        }
+        public void SendAlertElapsedHandler(object source, ElapsedEventArgs e)
+        {
+            Parallel.ForEach(Users, user =>
+            {
+                Parallel.ForEach(user.UserProducts, product =>
+                {                    
                     product.Status = "Expired";
                     Console.WriteLine("product has expired");
-                    check = 1;
+                    user.UserProducts.Remove(product);
                 });
             });
-            check = 0;
-            //DateTime date = DateTime.Now;
-            //while (product.ExpireDate.Day - date.Day ! <= 0)
-            //{
-            //    date = DateTime.Now;
-            //}
-            //Console.WriteLine("There are 5 seconds left");
-            //while (product.ExpireDate.Second != date.Second)
-            //{
-            //    date = DateTime.Now;
-            //}           
-            //});
         }
         public bool IsValid(string emailaddress)
         {
@@ -233,14 +199,23 @@ namespace SubscriptionBackMenu.Services
         {
             Parallel.ForEach(Users, user =>
             {
-                DateTime datecheck = DateTime.Now;
-                while (datecheck.Second != user.DisableCheck.AddSeconds(10).Second)
-                {
-                    datecheck = DateTime.Now;
-                }
+                //DateTime datecheck = DateTime.Now;
+                //while (datecheck.Second != user.DisableCheck.AddSeconds(10).Second)
+                //{
+                //    datecheck = DateTime.Now;
+                //}
+                Timer a = new Timer(259200000);
+                a.Elapsed += new ElapsedEventHandler(DeleteCheckHandler);
+                a.Enabled = true;
+            });
+        }
+        public void DeleteCheckHandler(object source, ElapsedEventArgs e)
+        {
+            Parallel.ForEach(Users, user =>
+            {
                 if (user.Status != "Active")
                     Users.Remove(user);
-            });
+            });            
         }
     }
 }
